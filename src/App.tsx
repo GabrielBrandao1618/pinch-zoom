@@ -8,6 +8,8 @@ function App() {
 
   const onImageZoom: Handler<"pinch"> = useCallback(
     ({ offset, origin, event }) => {
+      event.preventDefault();
+      event.stopPropagation();
       if (!imgRef.current) return;
 
       const rect = imgRef.current?.getBoundingClientRect();
@@ -21,8 +23,6 @@ function App() {
 
       imgRef.current.style.transform = `scale(${scale})`;
       imgRef.current.style.transformOrigin = `${mappedX}px ${mappedY}px`;
-      event.preventDefault();
-      event.stopPropagation();
     },
     [],
   );
@@ -36,9 +36,6 @@ function App() {
         min: 1,
       },
       rubberband: 0.3,
-      eventOptions: {
-        passive: true,
-      },
     },
   );
 
@@ -64,6 +61,9 @@ function App() {
         <img
           ref={imgRef}
           src="https://picsum.photos/200"
+          style={{
+            touchAction: "none",
+          }}
         />
       </div>
     </main>

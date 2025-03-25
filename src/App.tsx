@@ -36,6 +36,9 @@ function App() {
         min: 1,
       },
       rubberband: 0.3,
+      eventOptions: {
+        passive: true,
+      },
     },
   );
 
